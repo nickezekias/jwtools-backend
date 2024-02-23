@@ -37,6 +37,8 @@ class Product extends Model
         'type',
         'unit_of_measure',
         'updated_at',
-        'warehouse'
+        'warehouse',
+        'created_at',
+        'updated_at'
     ];
 }

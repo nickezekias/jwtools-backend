@@ -13,26 +13,26 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('attributes');
-            $table->string('barcode');
-            $table->string('brand');
-            $table->string('categories');
+            $table->string('attributes')->nullable();
+            $table->string('barcode')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('categories')->nullable();
             $table->string('color');
             $table->decimal('cost', 12, 4)->nullable();
-            $table->string('description');
-            $table->string('dimensions');
-            $table->string('images');
+            $table->string('description')->nullable();
+            $table->string('dimensions')->nullable();
+            $table->string('images')->nullable();
             $table->string('locale');
             $table->string('name');
-            $table->string('price');
-            $table->string('quantity');
-            $table->string('qr_code');
-            $table->string('serial');
+            $table->decimal('price', 12, 4)->nullable();
+            $table->unsignedSmallInteger('quantity');
+            $table->string('qr_code')->nullable();
+            $table->string('serial')->unique()->nullable();
             $table->string('sku')->unique();
             $table->string('slug')->unique();
             $table->string('state');
             $table->string('status');
-            $table->string('tags');
+            $table->string('tags')->nullable();
             $table->string('type');
             $table->string('unit_of_measure');
             $table->string('warehouse');
