@@ -18,6 +18,7 @@ class Product extends Model
         'brand',
         'categories',
         'color',
+        'container',
         'cost',
         'created_at',
         'description',

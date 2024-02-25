@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('barcode')->nullable();
             $table->string('brand')->nullable();
             $table->string('categories')->nullable();
-            $table->string('color');
+            $table->string('color')->nullable();
+            $table->string('container')->nullable();
             $table->decimal('cost', 12, 4)->nullable();
             $table->string('description')->nullable();
             $table->string('dimensions')->nullable();
@@ -33,8 +34,8 @@ return new class extends Migration
             $table->string('state');
             $table->string('status');
             $table->string('tags')->nullable();
-            $table->string('type');
-            $table->string('unit_of_measure');
+            $table->string('type')->nullable();
+            $table->string('unit_of_measure')->nullable();
             $table->string('warehouse');
             $table->timestamps();
 

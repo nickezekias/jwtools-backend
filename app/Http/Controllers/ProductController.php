@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
 use App\Http\Resources\ProductResource as ObjectResource;
 use App\Models\Product as Obj;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
         $obj = Obj::firstOrCreate([
             'attributes' => $request->productAttributes,
@@ -53,6 +54,7 @@ class ProductController extends Controller
             'brand' => $request->brand,
             'categories' => $request->categories,
             'color' => $request->color,
+            'container' => $request->container,
             'cost' => $request->cost,
             'description' => $request->description,
             'dimensions' => $request->dimensions,
@@ -70,7 +72,7 @@ class ProductController extends Controller
             'tags' => $request->tags,
             'type' => $request->type,
             'unit_of_measure' => $request->unitOfMeasure,
-            'warehouse' => 'Owendo'
+            'warehouse' => $request->warehouse
         ]);
         $obj->save();
         return new ObjectResource($obj);
@@ -87,7 +89,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductStoreRequest $request, string $id)
     {
         $obj = Obj::findOrFail($id);
         $obj->attributes = $request->productAttributes;
@@ -95,6 +97,7 @@ class ProductController extends Controller
         $obj->brand = $request->brand;
         $obj->categories = $request->categories;
         $obj->color = $request->color;
+        $obj->container = $request->container;
         $obj->cost = $request->cost;
         $obj->description = $request->description;
         $obj->dimensions = $request->dimensions;
