@@ -37,7 +37,6 @@ class Product extends Model
         'tags',
         'type',
         'unit_of_measure',
-        'updated_at',
         'warehouse',
         'created_at',
         'updated_at'
