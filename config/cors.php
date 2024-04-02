@@ -17,6 +17,8 @@ return [
 
     'paths' => [
         'api/*',
+        'api/containers',
+        'api/products',
         'login',
         'logout',
         'register',
