@@ -41,4 +41,17 @@ class Product extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'attributes' => 'array',
+            'tags' => 'array'
+        ];
+    }
 }

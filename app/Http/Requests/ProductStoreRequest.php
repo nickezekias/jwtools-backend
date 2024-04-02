@@ -21,6 +21,11 @@ class ProductStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        return $this->isMethod('POST') ? $this->store() : $this->update();
+    }
+
+    private function store(): array
+    {
         return [
             'attribute' => 'nullable|string|max:255',
             'barcode' => 'required|string',
@@ -32,7 +37,7 @@ class ProductStoreRequest extends FormRequest
             'description' => 'nullable|string',
             'dimensions' => 'nullable|string',
             'images' => 'nullable|string|max:255',
-            'locale' => 'required|string',
+            'locale' => 'nullable|string',
             'name' => 'bail|required|string',
             'price' => 'nullable|decimal:0,4',
             'quantity' => 'required|integer|min:1',
@@ -40,12 +45,24 @@ class ProductStoreRequest extends FormRequest
             'serial' => 'nullable|unique:products|string',
             'sku' => 'bail|required|unique:products|max:255',
             'slug' => 'required|max:255',
-            'state' => 'required|string|max:255',
-            'status' => 'required|string',
-            'tags' => 'nullable|string',
+            'state' => 'nullable|string|max:255',
+            'status' => 'nullable|string',
+            'tags' => 'nullable|array',
             'type' => 'nullable|string',
             'unitOfMeasure' => 'nullable|string',
-            'warehouse' => 'required|string',
+            'warehouse' => 'nullable|string',
         ];
+    }
+
+    private function update(): array
+    {
+        $rules = $this->store();
+        $rules['locale'] = 'required|string';
+        $rules['serial'] = 'nullable|string';
+        $rules['sku'] = 'bail|required|max:255';
+        $rules['state'] = 'required|string|max:255';
+        $rules['status'] = 'required|string|max:255';
+        // $rules['warehouse'] = 'required|string|max:255';
+        return $rules;
     }
 }

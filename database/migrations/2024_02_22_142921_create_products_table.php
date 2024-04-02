@@ -31,12 +31,12 @@ return new class extends Migration
             $table->string('serial')->unique()->nullable();
             $table->string('sku')->unique();
             $table->string('slug')->unique();
-            $table->string('state');
-            $table->string('status');
+            $table->string('state')->nullable();
+            $table->string('status')->nullable();
             $table->string('tags')->nullable();
             $table->string('type')->nullable();
             $table->string('unit_of_measure')->nullable();
-            $table->string('warehouse');
+            $table->string('warehouse')->nullable();
             $table->timestamps();
 
             $table->softDeletes();

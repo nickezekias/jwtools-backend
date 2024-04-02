@@ -16,7 +16,7 @@ class ProductResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'attributes' => $this->attributes,
+            'attributes' => $this->attributes != null ? explode(',', $this->attributes) : [],
             'barcode' => $this->barcode,
             'brand' => $this->brand,
             'categories' => $this->categories,
@@ -25,7 +25,7 @@ class ProductResource extends JsonResource
             'cost' => $this->cost,
             'description' => $this->description,
             'dimensions' => $this->dimensions,
-            'images' => $this->images,
+            'images' => $this->images != null ? explode(',', $this->images) : [],
             'locale' => $this->locale,
             'name' => $this->name,
             'price' => $this->price,
@@ -36,7 +36,7 @@ class ProductResource extends JsonResource
             'slug' => $this->slug,
             'state' => $this->state,
             'status' => $this->status,
-            'tags' => $this->tags,
+            'tags' => $this->tags != null ? explode(',', $this->tags) : [],
             'type' => $this->type,
             'unit_of_measure' => $this->unitOfMeasure,
             'warehouse' => $this->warehouse,

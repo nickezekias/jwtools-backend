@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $obj = Obj::firstOrCreate([
-            'attributes' => $request->productAttributes,
+            'attributes' => implode(',', $request->productAttributes),
             'barcode' => $request->barcode,
             'brand' => $request->brand,
             'categories' => $request->categories,
@@ -59,7 +59,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'dimensions' => $request->dimensions,
             'images' => $request->images,
-            'locale' => $request->get('locale', 'fr-FR'),
+            'locale' => 'fr-FR',
             'name' => $request->name,
             'price' => $request->get('price', $request->cost),
             'quantity' => $request->quantity,
@@ -69,7 +69,7 @@ class ProductController extends Controller
             'slug' => $request->slug,
             'state' => $request->state,
             'status' => $request->status,
-            'tags' => $request->tags,
+            'tags' => implode(',', $request->tags),
             'type' => $request->type,
             'unit_of_measure' => $request->unitOfMeasure,
             'warehouse' => $request->warehouse
