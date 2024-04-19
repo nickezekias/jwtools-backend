@@ -6,8 +6,6 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Resources\ProductResource as ObjectResource;
 use App\Models\Product as Obj;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class ProductController extends Controller
 {
@@ -74,8 +72,52 @@ class ProductController extends Controller
             'unit_of_measure' => $request->unitOfMeasure,
             'warehouse' => $request->warehouse
         ]);
-        $obj->save();
         return new ObjectResource($obj);
+    }
+
+    public function massStore(Request $request) {
+        $objects = $request->objects;
+        $successfulStoreList = [];
+        $failedStoreList = [];
+        // return response()->json($objects);
+        for ($i = 0; $i < count($objects); $i++) {
+            $obj = Obj::firstOrCreate([
+                'attributes' => implode(',', $objects[$i]['productAttributes']),
+                'barcode' => $objects[$i]['barcode'],
+                'brand' => $objects[$i]['brand'],
+                'categories' => $objects[$i]['categories'],
+                'color' => $objects[$i]['color'],
+                'container' => $objects[$i]['container'],
+                // 'cost' => $objects[$i]['cost'],
+                'description' => $objects[$i]['description'],
+                'dimensions' => $objects[$i]['dimensions'],
+                'images' => $objects[$i]['images'],
+                'locale' => 'fr-FR',
+                'name' => $objects[$i]['name'],
+                // 'price' => $objects[$i]['cost'],
+                'quantity' => $objects[$i]['quantity'],
+                'qr_code' => $objects[$i]['qrCode'],
+                'serial' => $objects[$i]['serial'],
+                'sku' => $objects[$i]['sku'],
+                'slug' => $objects[$i]['slug'],
+                'state' => $objects[$i]['state'],
+                'status' => $objects[$i]['status'],
+                'tags' => implode(',', $objects[$i]['tags']),
+                'type' => $objects[$i]['type'],
+                'unit_of_measure' => $objects[$i]['unitOfMeasure'],
+                'warehouse' => $objects[$i]['warehouse']
+            ]);
+            if ($obj) {
+                $successfulStoreList[$i] = $obj;
+            } else {
+                $failedStoreList[$i] = $obj;
+            }
+        }
+
+        return response()->json([
+            "data" => ObjectResource::collection($successfulStoreList),
+            "failed" => ObjectResource::collection($failedStoreList)
+        ]);
     }
 
     /**
@@ -112,7 +154,7 @@ class ProductController extends Controller
         $obj->slug = $request->slug;
         $obj->state = $request->state;
         $obj->status = $request->status;
-        $obj->tags = $request->tags;
+        $obj->tags = implode(',', $request->tags);
         $obj->type = $request->type;
         $obj->unit_of_measure = $request->unitOfMeasure;
         $obj->warehouse = $request->warehouse;

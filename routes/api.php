@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('products', ProductController::class);
+Route::post('products/mass-create', 'App\Http\Controllers\ProductController@massStore');
 Route::apiResource('containers', ContainerController::class);
