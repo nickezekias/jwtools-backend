@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Container extends Model
 {
@@ -28,4 +29,10 @@ class Container extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function getProductsCountAttribute()
+    {
+        $productsCount = DB::table('products')->where('container', '=', $this->sku)->count();
+        return $productsCount;
+    }
 }

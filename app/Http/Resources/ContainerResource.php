@@ -25,6 +25,7 @@ class ContainerResource extends JsonResource
             'material' => $this->material,
             'name' => $this->name,
             'parent' => $this->parent,
+            'productsCount' => $this->productsCount,
             'qrCode' => $this->qr_code,
             'sku' => $this->sku,
             'state' => $this->state,
