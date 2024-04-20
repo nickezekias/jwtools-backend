@@ -6,6 +6,7 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Resources\ProductResource as ObjectResource;
 use App\Models\Product as Obj;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -46,6 +47,7 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
+        $images = $this->uploadImage($request);
         $obj = Obj::firstOrCreate([
             'attributes' => implode(',', $request->productAttributes),
             'barcode' => $request->barcode,
@@ -56,7 +58,7 @@ class ProductController extends Controller
             'cost' => $request->cost,
             'description' => $request->description,
             'dimensions' => $request->dimensions,
-            'images' => $request->images,
+            'images' => $images,
             'locale' => 'fr-FR',
             'name' => $request->name,
             'price' => $request->get('price', $request->cost),
@@ -175,6 +177,16 @@ class ProductController extends Controller
             return response()->json([ 'success' => true ]);
         } else {
             return response()->json(['success' => false], 400);
+        }
+    }
+
+    public function uploadImage(Request $request) {
+        if ($request->file()) {
+            $resp = Storage::put('images/products', $request->file, 'public');
+            return str_replace('\\', '', env('APP_URL').$resp);
+            // return $resp;
+        } else {
+            return '';
         }
     }
 }
