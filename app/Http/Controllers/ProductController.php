@@ -49,7 +49,7 @@ class ProductController extends Controller
     {
         $images = $this->uploadImage($request);
         $obj = Obj::firstOrCreate([
-            'attributes' => implode(',', $request->productAttributes),
+            'attributes' => $request->productAttributes,
             'barcode' => $request->barcode,
             'brand' => $request->brand,
             'categories' => $request->categories,
@@ -69,7 +69,7 @@ class ProductController extends Controller
             'slug' => $request->slug,
             'state' => $request->state,
             'status' => $request->status,
-            'tags' => implode(',', $request->tags),
+            'tags' => $request->tags,
             'type' => $request->type,
             'unit_of_measure' => $request->unitOfMeasure,
             'warehouse' => $request->warehouse
@@ -183,8 +183,8 @@ class ProductController extends Controller
     public function uploadImage(Request $request) {
         if ($request->file()) {
             $resp = Storage::put('images/products', $request->file, 'public');
-            return str_replace('\\', '', env('APP_URL').$resp);
-            // return $resp;
+            // return str_replace('\\', '', env('APP_URL').$resp);
+            return $resp;
         } else {
             return '';
         }
