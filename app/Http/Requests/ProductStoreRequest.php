@@ -47,7 +47,7 @@ class ProductStoreRequest extends FormRequest
             'slug' => 'required|max:255',
             'state' => 'nullable|string|max:255',
             'status' => 'nullable|string',
-            'tags' => 'nullable|array',
+            'tags' => 'nullable|string',
             'type' => 'nullable|string',
             'unitOfMeasure' => 'nullable|string',
             'warehouse' => 'nullable|string',

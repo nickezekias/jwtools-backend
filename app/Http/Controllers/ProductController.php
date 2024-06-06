@@ -133,9 +133,16 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductStoreRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
+        // return response()->json($request->all());
         $obj = Obj::findOrFail($id);
+
+        $images = $this->uploadImage($request);
+
+        //TODO: Add code to delete old image if not used by another entity
+
+        // return response()->json($request->all());
         $obj->attributes = $request->productAttributes;
         $obj->barcode = $request->barcode;
         $obj->brand = $request->brand;
@@ -145,7 +152,7 @@ class ProductController extends Controller
         $obj->cost = $request->cost;
         $obj->description = $request->description;
         $obj->dimensions = $request->dimensions;
-        $obj->images = $request->images;
+        $obj->images = $images;
         $obj->locale = $request->locale;
         $obj->name = $request->name;
         $obj->price = $request->price;
@@ -156,7 +163,7 @@ class ProductController extends Controller
         $obj->slug = $request->slug;
         $obj->state = $request->state;
         $obj->status = $request->status;
-        $obj->tags = implode(',', $request->tags);
+        $obj->tags = $request->tags;
         $obj->type = $request->type;
         $obj->unit_of_measure = $request->unitOfMeasure;
         $obj->warehouse = $request->warehouse;
@@ -186,7 +193,7 @@ class ProductController extends Controller
             // return str_replace('\\', '', env('APP_URL').$resp);
             return $resp;
         } else {
-            return '';
+            return $request->images;
         }
     }
 }

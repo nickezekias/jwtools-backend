@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'qr_code' => $this->qr_code,
+            'qrCode' => $this->qr_code,
             'serial' => $this->serial,
             'sku' => $this->sku,
             'slug' => $this->slug,
@@ -38,7 +38,7 @@ class ProductResource extends JsonResource
             'status' => $this->status,
             'tags' => $this->tags != null ? explode(',', $this->tags) : [],
             'type' => $this->type,
-            'unit_of_measure' => $this->unitOfMeasure,
+            'unitOfMeasure' => $this->unitOfMeasure,
             'warehouse' => $this->warehouse,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at
